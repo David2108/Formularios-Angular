@@ -1,0 +1,115 @@
+<h2>Template: Básicos</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+
+    <!-- #miFormulario="ngForm" ->  Se define un identificador y
+         se enlaza con la con la referencia ngForm  -->
+    <form (ngSubmit)="guardar()" #miFormulario="ngForm"
+          autocomplete="off">
+
+      <!-- Cuando se usa la directiva NgModel se debe definir
+           obligatoriamente el atributo name-->
+      <!-- Campo de producto -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+          <!-- - Para acceder a un campo del formulario se usa
+                 miFormulario.controls['nameField']
+               - Se debe agregar ? al final del nombre del campo
+                 para que valide una vez se haya renderizado el
+                 formulario
+                 miFormulario.controls['nameField']?
+               - invalid -> Indica si el campo no es valido
+               - touched -> Indica si el campo ha sido tocado por el usuario
+               -->
+          <input type="text"
+                 [ngModel]="initialForm.producto"
+                 name="producto"
+                 class="form-control"
+                 placeholder="Nombre del producto"
+                 required
+                 minlength="3">
+          <span class="form-text text-danger"
+                *ngIf="!nombreValido()">
+            Debe de ser de 3 letras
+          </span>
+        </div>
+      </div>
+
+      <!-- Campo del precio -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Precio</label>
+        <div class="col-sm-9">
+          <input type="number"
+                 [ngModel]="initialForm.precio"
+                 name="precio"
+                 class="form-control"
+                 placeholder="Precio del producto"
+                 required
+                 min="0">
+          <span class="form-text text-danger"
+                *ngIf="!precioValido()">
+            El precio debe de ser 0 o mayor
+          </span>
+        </div>
+      </div>
+
+      <!-- Campo de existencias -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Existencias</label>
+        <div class="col-sm-9">
+          <input type="number"
+                 [ngModel]="initialForm.existencia"
+                 name="existencia"
+                 customMin
+                 [minimo]="0"
+                 class="form-control"
+                 placeholder="Existencias del producto"
+                 required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button type="submit"
+                  [disabled]="miFormulario.invalid"
+                  class="btn btn-primary float-end">
+            Guardar
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+
+    <!-- Se usa para verificar si el formulario es valido -->
+    <span>Valid</span>
+    <pre>{{miFormulario.valid}}</pre>
+
+    <!-- Se usa para indicar que no se han cambiado ninguno de los valores
+         con los cuales se presento el formulario-->
+    <span>Pristine</span>
+    <pre>{{miFormulario.pristine}}</pre>
+
+    <!-- Indica si el usuario a tocado el formulario -->
+    <span>Valid</span>
+    <pre>{{miFormulario.touched}}</pre>
+
+    <!-- Se usa para mostrar el contenido del formulario -->
+    <span>Value
+    </span>
+    <pre>{{miFormulario.value | json}}</pre>
+
+    <span>Errors
+    </span>
+    <pre>{{miFormulario.controls['existencia'].errors | json}}</pre>
+
+  </div>
+</div>
