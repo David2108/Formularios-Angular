@@ -1,0 +1,76 @@
+<h2>Template: <small>Reactivos</small></h2>
+<hr>
+
+<form [formGroup]="miFormulario"
+      (ngSubmit)="guardar()"
+      autocomplete="off">
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Nombre</label>
+    <div class="col-sm-9">
+      <input formControlName="nombre"
+             class="form-control"
+             placeholder="Nombre de la persona">
+      <span *ngIf="validarCampo('nombre')"
+            class="form-text text-danger">
+        Este campo es obligatorio
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Agregar</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input [formControl]="nuevoFavorito"
+               class="form-control"
+               placeholder="Agregar favorito"
+               (keyup.enter)="agregarFavorito()">
+        <button type="button" class="btn btn-outline-primary"
+                (click)="agregarFavorito()">
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Favoritos</label>
+    <!-- FormArrayName -> Se asigna al contenedor de la lista del array -->
+    <div class="col-sm-9" formArrayName="favoritos">
+      <div class="input-group mb-1"
+           *ngFor="let favorito of favoritos.controls; let i = index">
+        <input class="form-control"
+               [formControlName]="i">
+        <button type="button" class="btn btn-outline-danger"
+                (click)="eliminarFavorito(i)">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-9">
+      <button type="button"
+              class="btn btn-primary float-end">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<span>Valid</span>
+<pre>{{miFormulario.valid}}</pre>
+<br>
+
+<span>Valid</span>
+<pre>{{miFormulario.value | json}}</pre>
+<br>
+
+<span>Agregar Juego</span>
+<pre>{{nuevoFavorito.valid}}</pre>
+<br>
+<pre>{{nuevoFavorito.value}}</pre>
+

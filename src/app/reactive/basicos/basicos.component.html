@@ -1,1 +1,96 @@
-<p>basicos works!</p>
+<h2>Reactivos: Básicos</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+
+    <form [formGroup]="miFormulario"
+          (ngSubmit)="guardar()"
+          autocomplete="off">
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+
+          <input type="text"
+                 formControlName="nombre"
+                 class="form-control"
+                 placeholder="Nombre del producto">
+          <span *ngIf="campoEsValido('producto')"
+                class="form-text text-danger">
+            Debe de ser de 3 letras
+          </span>
+        </div>
+      </div>
+
+      <!-- Campo del precio -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Precio</label>
+        <div class="col-sm-9">
+          <input type="number"
+                 formControlName="precio"
+                 class="form-control"
+                 placeholder="Precio del producto">
+          <span *ngIf="campoEsValido('precio')"
+                class="form-text text-danger">
+            El precio debe de ser 0 o mayor
+          </span>
+        </div>
+      </div>
+
+      <!-- Campo de existencias -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Existencias</label>
+        <div class="col-sm-9">
+          <input type="number"
+                 formControlName="existencias"
+                 class="form-control"
+                 placeholder="Existencias del producto">
+          <span *ngIf="campoEsValido('existencias')"
+                class="form-text text-danger">
+            Las existencias deben de ser 0 o mayor
+          </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button type="submit"
+                  class="btn btn-primary float-end">
+            Guardar
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+
+    <!-- Se usa para verificar si el formulario es valido -->
+    <span>Valid</span>
+    <pre>{{miFormulario.valid}}</pre>
+
+    <!-- Se usa para indicar que no se han cambiado ninguno de los valores
+         con los cuales se presento el formulario-->
+    <span>Pristine</span>
+    <pre>{{miFormulario.pristine}}</pre>
+
+    <!-- Indica si el usuario a tocado el formulario -->
+    <span>Valid</span>
+    <pre>{{miFormulario.touched}}</pre>
+
+    <!-- Se usa para mostrar el contenido del formulario -->
+    <span>Value
+    </span>
+    <pre>{{miFormulario.value | json}}</pre>
+
+    <span>Errors
+    </span>
+    <pre>{{miFormulario.controls['existencia'].errors | json}}</pre>
+
+  </div>
+</div>
